@@ -1,5 +1,8 @@
 import React from 'react';
 import shortid from 'shortid';
+import { connect } from 'react-redux';
+import phonebookActions from '../../Redux/Phonebook/phonebook-actions';
+
 import s from '../Filter/Filter.module.css';
 
 const nameInputId = shortid.generate();
@@ -11,4 +14,11 @@ const Filter = ({value, onChange }) => (
     </label>
 )
 
-export default Filter;
+const mapStateToProps = (state) => ({
+    value: state.phonebook.filter,
+});
+const mapDispatchToProps = dispatch => ({
+    onChange: (evt) => dispatch(phonebookActions.changeFilter(evt.target.value)),
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Filter);

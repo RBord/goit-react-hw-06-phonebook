@@ -11,23 +11,16 @@ const addContact = data => ({
     }
 });
 
-export default addContact;
+const deleteContact = contactId => ({
+    type: types.DELETE,
+    payload: contactId,
+});
 
-// {
-//         const contact = {
-//             id: shortid.generate(),
-//             name: data.name,
-//             number: data.number,
-//         }
+const changeFilter = value => ({
+    type: types.CHANGE_FILTER,
+    payload: value,
+});
 
-//         this.setState(prevState => {
-//             const isUnique = this.onSameName(contact.name, prevState.contacts);
-//             if (isUnique) {
-//                 return {
-//                     contacts: [contact, ...prevState.contacts]
-//                 };
-//             } else {
-//                 alert('Контакт с таким Именем уже добавлен!')
-//             }
-//         })
-//     }
+
+export default { addContact, deleteContact, changeFilter };
+

@@ -1,13 +1,12 @@
 import { createStore, combineReducers} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import phonebookReducer  from '../Redux/Phonebook/phonebook-reducer';
-import contactFormReducer from './Phonebook/contactFormReducer';
+// import contactFormReducer from './ContactForm/contactForm-reducer';
 // import types from '../Redux/Phonebook/phonebook-types';
 
 
 const rootReducer = combineReducers({
     phonebook: phonebookReducer,
-    contactForm: contactFormReducer,
 })
 
 const store = createStore(rootReducer, composeWithDevTools());

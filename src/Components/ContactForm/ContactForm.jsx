@@ -1,12 +1,16 @@
 import React from 'react';
 import shortid from 'shortid';
+import { connect } from 'react-redux';
+import phonebookActions from '../../Redux/Phonebook/phonebook-actions';
+
 import s from '../ContactForm/ContactForm.module.css'
 
 class ContactForm extends React.Component {
     state = {
         name: '',
         number: '',
-    }
+    };
+
     nameInputId = shortid.generate();
     numberInputId = shortid.generate();
 
@@ -60,4 +64,10 @@ class ContactForm extends React.Component {
         );
     }
 }
-export default ContactForm;
+
+
+const mapDispatchToProps = dispatch => ({
+    onSubmit: data => dispatch(phonebookActions.addContact(data)),
+})
+
+export default connect(null, mapDispatchToProps)(ContactForm);
