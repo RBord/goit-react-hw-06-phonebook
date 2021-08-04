@@ -4,7 +4,7 @@ import types from './phonebook-types';
 const name = (state = '', { type, payload }) => {
     switch (type) {
         case types.ADD:
-            return [...state, payload];
+            return payload;
         default:
             return state;
     }
@@ -13,7 +13,7 @@ const name = (state = '', { type, payload }) => {
 const number = (state = '', { type, payload }) => {
     switch (type) {
         case types.ADD:
-            return [...state, payload];
+            return payload;
         default:
             return state;
     }
