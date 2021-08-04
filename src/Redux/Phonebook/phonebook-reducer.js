@@ -1,8 +1,5 @@
 import { combineReducers } from "redux";
-// {
-//     contacts: [],
-//     filter: '',
-// }
+
 
 const contacts = (state = [], action) => {
     return state;
@@ -14,5 +11,5 @@ const filter = (state = '', action) => {
 
 export default combineReducers({
     contacts,
-    filter
+    filter,
 })
