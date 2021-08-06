@@ -1,7 +1,7 @@
 import React from 'react';
 import shortid from 'shortid';
 import { connect } from 'react-redux';
-import phonebookActions from '../../Redux/Phonebook/phonebook-actions';
+import { addContact } from '../../Redux/Phonebook/phonebook-actions';
 
 import s from '../ContactForm/ContactForm.module.css'
 
@@ -22,8 +22,15 @@ class ContactForm extends React.Component {
     }
     handleSubmit = evt => {
         evt.preventDefault();
-
-        this.props.onSubmit(this.state);
+        const { value, onSubmit } = this.props;
+        
+        const hasSameName = value.find(contact => contact.name === this.state.name);
+        if (hasSameName) {
+            alert('Контакт с таким именем уже есть!');
+            this.reset();
+            return;
+        }
+        onSubmit(this.state);
         this.reset();
     }
     reset = () => {
@@ -64,10 +71,12 @@ class ContactForm extends React.Component {
         );
     }
 }
-
-
-const mapDispatchToProps = dispatch => ({
-    onSubmit: data => dispatch(phonebookActions.addContact(data)),
+const mapStateToProps = ({phonebook:{contacts}}) => ({
+    value: contacts,
 })
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+const mapDispatchToProps = dispatch => ({
+    onSubmit: data => dispatch(addContact(data)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

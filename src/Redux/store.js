@@ -1,14 +1,31 @@
-import { createStore, combineReducers} from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import phonebookReducer  from '../Redux/Phonebook/phonebook-reducer';
-// import contactFormReducer from './ContactForm/contactForm-reducer';
-// import types from '../Redux/Phonebook/phonebook-types';
 
+const contactPersistConfig = {
+    key: 'root',
+    storage,
+    blacklist: ['filter'],
+};
 
-const rootReducer = combineReducers({
-    phonebook: phonebookReducer,
-})
+const store = configureStore({
+    reducer: {
+        phonebook: persistReducer (contactPersistConfig, phonebookReducer),
+    },
+    middleware: getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+        }
+    })
+});
 
-const store = createStore(rootReducer, composeWithDevTools());
+const persistor = persistStore(store);
 
-export default store;
+export { store, persistor };
+
+    
+// REDUX VANILLA    
+// const rootReducer = combineReducers({
+//     phonebook: phonebookReducer,
+// })

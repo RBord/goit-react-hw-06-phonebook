@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import phonebookActions from '../../Redux/Phonebook/phonebook-actions';
+import { deleteContact } from '../../Redux/Phonebook/phonebook-actions';
 import s from '../ContactList/ContactList.module.css';
 
 const ContactList = ({value, onDeleteContact}) => {
@@ -28,7 +28,7 @@ const mapStateToProps = ({phonebook: {contacts, filter}}) => ({
     value: getFiltredContacts (contacts, filter)
 })
 const mapDispatchToProps = dispatch => ({
-    onDeleteContact: (id) => dispatch(phonebookActions.deleteContact(id)),
+    onDeleteContact: (id) => dispatch(deleteContact(id)),
 });
 
 
